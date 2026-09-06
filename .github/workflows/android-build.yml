@@ -61,17 +61,18 @@ jobs:
       - name: Decode signing key
         id: signing
         env:
+          # Matches repo secrets: SIGNING_KEY, KEY_STORE_PASSWORD, ALIAS, KEY_PASSWORD
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          ALIAS: ${{ secrets.ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           EVENT_NAME: ${{ github.event_name }}
         run: |
           MISSING=0
           [ -z "$SIGNING_KEY" ] && echo "Missing secret: SIGNING_KEY" && MISSING=1
-          [ -z "$SIGNING_STORE_PASSWORD" ] && echo "Missing secret: SIGNING_STORE_PASSWORD" && MISSING=1
-          [ -z "$SIGNING_KEY_ALIAS" ] && echo "Missing secret: SIGNING_KEY_ALIAS" && MISSING=1
-          [ -z "$SIGNING_KEY_PASSWORD" ] && echo "Missing secret: SIGNING_KEY_PASSWORD" && MISSING=1
+          [ -z "$KEY_STORE_PASSWORD" ] && echo "Missing secret: KEY_STORE_PASSWORD" && MISSING=1
+          [ -z "$ALIAS" ] && echo "Missing secret: ALIAS" && MISSING=1
+          [ -z "$KEY_PASSWORD" ] && echo "Missing secret: KEY_PASSWORD" && MISSING=1
 
           if [ "$MISSING" -eq 1 ]; then
             if [ "$EVENT_NAME" = "pull_request" ]; then
@@ -80,7 +81,7 @@ jobs:
               exit 0
             fi
             echo "::error::Signing secrets are required on main to produce APK + AAB."
-            echo "Add these repository secrets: SIGNING_KEY, SIGNING_STORE_PASSWORD, SIGNING_KEY_ALIAS, SIGNING_KEY_PASSWORD"
+            echo "Add these repository secrets: SIGNING_KEY, KEY_STORE_PASSWORD, ALIAS, KEY_PASSWORD"
             exit 1
           fi
 
@@ -92,9 +93,9 @@ jobs:
 
           cat > "$GITHUB_WORKSPACE/keystore.properties" <<EOF
           storeFile=$GITHUB_WORKSPACE/release.keystore
-          storePassword=$SIGNING_STORE_PASSWORD
-          keyAlias=$SIGNING_KEY_ALIAS
-          keyPassword=$SIGNING_KEY_PASSWORD
+          storePassword=$KEY_STORE_PASSWORD
+          keyAlias=$ALIAS
+          keyPassword=$KEY_PASSWORD
           EOF
           sed -i 's/^[[:space:]]*//' "$GITHUB_WORKSPACE/keystore.properties"
           echo "signed=true" >> "$GITHUB_OUTPUT"
