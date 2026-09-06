@@ -65,13 +65,31 @@ jobs:
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
-          if [ -z "$SIGNING_KEY" ] || [ -z "$SIGNING_STORE_PASSWORD" ] || [ -z "$SIGNING_KEY_ALIAS" ] || [ -z "$SIGNING_KEY_PASSWORD" ]; then
-            echo "Signing secrets not available — will build debug APK instead."
-            echo "signed=false" >> "$GITHUB_OUTPUT"
-            exit 0
+          MISSING=0
+          [ -z "$SIGNING_KEY" ] && echo "Missing secret: SIGNING_KEY" && MISSING=1
+          [ -z "$SIGNING_STORE_PASSWORD" ] && echo "Missing secret: SIGNING_STORE_PASSWORD" && MISSING=1
+          [ -z "$SIGNING_KEY_ALIAS" ] && echo "Missing secret: SIGNING_KEY_ALIAS" && MISSING=1
+          [ -z "$SIGNING_KEY_PASSWORD" ] && echo "Missing secret: SIGNING_KEY_PASSWORD" && MISSING=1
+
+          if [ "$MISSING" -eq 1 ]; then
+            if [ "$EVENT_NAME" = "pull_request" ]; then
+              echo "PR build will use debug APK only (no AAB without signing secrets)."
+              echo "signed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "::error::Signing secrets are required on main to produce APK + AAB."
+            echo "Add these repository secrets: SIGNING_KEY, SIGNING_STORE_PASSWORD, SIGNING_KEY_ALIAS, SIGNING_KEY_PASSWORD"
+            exit 1
           fi
+
           echo "$SIGNING_KEY" | base64 --decode > "$GITHUB_WORKSPACE/release.keystore"
+          if [ ! -s "$GITHUB_WORKSPACE/release.keystore" ]; then
+            echo "::error::SIGNING_KEY base64 decoded to an empty/invalid keystore file."
+            exit 1
+          fi
+
           cat > "$GITHUB_WORKSPACE/keystore.properties" <<EOF
           storeFile=$GITHUB_WORKSPACE/release.keystore
           storePassword=$SIGNING_STORE_PASSWORD
@@ -80,6 +98,7 @@ jobs:
           EOF
           sed -i 's/^[[:space:]]*//' "$GITHUB_WORKSPACE/keystore.properties"
           echo "signed=true" >> "$GITHUB_OUTPUT"
+          echo "Signing key decoded successfully — will build signed APK + AAB."
 
       - name: Resolve build targets
         id: targets
@@ -150,6 +169,7 @@ jobs:
           BUILD_TYPE="${{ steps.targets.outputs.build_type }}"
           SUFFIX="${{ steps.version.outputs.suffix }}"
           VER="${{ steps.version.outputs.name }}-${{ steps.version.outputs.code }}"
+          mkdir -p dist
 
           if [ "${{ steps.targets.outputs.want_apk }}" = "true" ]; then
             if [ "$BUILD_TYPE" = "debug" ]; then
@@ -159,20 +179,20 @@ jobs:
               SRC=$(ls app/build/outputs/apk/release/*.apk | grep -v unsigned | grep -v aligned | head -n 1)
               APK_NAME="bagh-chal-FOR-TESTING-v-${VER}-${SUFFIX}.apk"
             fi
-            cp "$SRC" "$APK_NAME"
-            echo "apk_name=$APK_NAME" >> "$GITHUB_ENV"
-            RELEASE_FILES="$APK_NAME"
+            cp "$SRC" "dist/$APK_NAME"
+            echo "apk_name=dist/$APK_NAME" >> "$GITHUB_ENV"
+            RELEASE_FILES="dist/$APK_NAME"
           fi
 
           if [ "${{ steps.targets.outputs.want_aab }}" = "true" ]; then
             SRC=$(ls app/build/outputs/bundle/release/*.aab | head -n 1)
             AAB_NAME="bagh-chal-FOR-PLAY-STORE-v-${VER}-${SUFFIX}.aab"
-            cp "$SRC" "$AAB_NAME"
-            echo "aab_name=$AAB_NAME" >> "$GITHUB_ENV"
+            cp "$SRC" "dist/$AAB_NAME"
+            echo "aab_name=dist/$AAB_NAME" >> "$GITHUB_ENV"
             if [ -n "$RELEASE_FILES" ]; then
-              RELEASE_FILES="$RELEASE_FILES"$'\n'"$AAB_NAME"
+              RELEASE_FILES="$RELEASE_FILES"$'\n'"dist/$AAB_NAME"
             else
-              RELEASE_FILES="$AAB_NAME"
+              RELEASE_FILES="dist/$AAB_NAME"
             fi
           fi
 
@@ -181,6 +201,9 @@ jobs:
             echo "$RELEASE_FILES"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
+
+          echo "Prepared files:"
+          ls -la dist
 
       - name: Upload APK (testing — install on device)
         if: steps.targets.outputs.want_apk == 'true'
@@ -200,19 +223,29 @@ jobs:
           retention-days: 30
           if-no-files-found: error
 
+      - name: Upload both (APK + AAB together)
+        if: steps.targets.outputs.want_apk == 'true' && steps.targets.outputs.want_aab == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: 0-BOTH-apk-and-aab-v${{ steps.version.outputs.name }}-${{ steps.version.outputs.suffix }}
+          path: dist/*
+          retention-days: 30
+          if-no-files-found: error
+
       - name: Write download summary
         run: |
           {
             echo "## Downloads"
             echo ""
-            if [ "${{ steps.targets.outputs.want_apk }}" = "true" ]; then
-              echo "- **APK (testing):** artifact \`1-APK-for-testing-...\` — install on a phone"
-            fi
-            if [ "${{ steps.targets.outputs.want_aab }}" = "true" ]; then
-              echo "- **AAB (release):** artifact \`2-AAB-for-play-store-...\` — upload to Google Play Console"
+            if [ "${{ steps.targets.outputs.want_apk }}" = "true" ] && [ "${{ steps.targets.outputs.want_aab }}" = "true" ]; then
+              echo "- **0-BOTH-apk-and-aab-...** — zip with both files"
+              echo "- **1-APK-for-testing-...** — install on a phone"
+              echo "- **2-AAB-for-play-store-...** — upload to Google Play Console"
+            elif [ "${{ steps.targets.outputs.want_apk }}" = "true" ]; then
+              echo "- **1-APK-for-testing-...** only (debug) — signing secrets missing on this PR"
             fi
             echo ""
-            echo "Open this run → **Artifacts** (bottom of the page) → download either or both."
+            echo "Open this run → **Artifacts** → download."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Resolve release tag
