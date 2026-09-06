@@ -20,7 +20,7 @@ Build the best mobile experience for Bagh Bakri — an ancient asymmetric strate
 | v0.1    | Foundation | Game engine & rules            | Done        |
 | v0.2    | Board      | Interactive board UI           | Done        |
 | v0.3    | Solo       | AI opponent                    | Done        |
-| v0.4    | Together   | Pass-and-play + tutorial       | Planned     |
+| v0.4    | Together   | Pass-and-play + tutorial       | Done        |
 | v0.5    | Polish     | Animations, sounds, themes     | Planned     |
 | v0.6    | Retention  | Stats, puzzles, achievements   | Planned     |
 | v1.0    | Launch     | Ads, analytics, Play Store     | Planned     |

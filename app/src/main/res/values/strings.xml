@@ -1,3 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Bagh Bakri</string>
+    <string name="app_name">Bagh Chal — Tigers &amp; Goats</string>
+    <string name="app_brand">Bagh Chal</string>
+
+    <!-- Common -->
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+    <string name="goats">Goats</string>
+    <string name="tigers">Tigers</string>
+    <string name="new_game">New Game</string>
+    <string name="new_short">New</string>
+    <string name="play_again">Play Again</string>
+    <string name="game_over">Game Over</string>
+    <string name="selected">Selected</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="got_it">Got it</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="continue_label">Continue</string>
+
+    <!-- Language -->
+    <string name="choose_language">Choose language</string>
+    <string name="choose_language_subtitle">You can change this later in Settings</string>
+    <string name="language">Language</string>
+    <string name="language_section">Language</string>
+
+    <!-- Home -->
+    <string name="home_tagline">Tigers &amp; Goats · Offline Board Game</string>
+    <string name="home_blurb">4 Tigers vs 20 Goats\nPlay alone vs AI or with a friend on one phone</string>
+    <string name="mode_pass_and_play">2 Players · Offline</string>
+    <string name="mode_pass_and_play_hint">Pass the phone — one plays Goats, one plays Tigers</string>
+    <string name="play_vs_ai">Play vs AI</string>
+    <string name="also_known_as">Also known as Bagh Bakri in parts of India</string>
+
+    <!-- AI setup -->
+    <string name="ai_setup_subtitle">Pick your side and difficulty</string>
+    <string name="play_as">Play as</string>
+    <string name="goats_detail">20 pieces · trap tigers</string>
+    <string name="tigers_detail">4 pieces · catch 5 goats</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Hard</string>
+    <string name="start_game">Start Game</string>
+
+    <!-- Settings -->
+    <string name="settings_subtitle">Gameplay &amp; help</string>
+    <string name="section_board_help">Board help</string>
+    <string name="section_feel">Feel</string>
+    <string name="section_help_legal">Help &amp; legal</string>
+    <string name="section_about">About</string>
+    <string name="setting_move_hints">Show move hints</string>
+    <string name="setting_move_hints_sub">Glow legal spots when you tap a tiger or goat</string>
+    <string name="setting_status_tips">Show tip text</string>
+    <string name="setting_status_tips_sub">Short instructions under the board during play</string>
+    <string name="setting_last_move">Highlight last move</string>
+    <string name="setting_last_move_sub">Cyan ring on the last piece that moved</string>
+    <string name="setting_haptics">Vibration on tap</string>
+    <string name="setting_haptics_sub">Light haptic feedback when you tap the board</string>
+    <string name="how_to_play_tutorial">How to play (tutorial)</string>
+    <string name="about_version">Bagh Chal — Tigers &amp; Goats · version 1.0</string>
+    <string name="about_offline">Offline board game · Tigers &amp; Goats</string>
+    <string name="about_regional">Popular across Nepal and nearby Himalayan regions (also called Bagh Bakri). Perfect for family play on one phone.</string>
+    <string name="share_game">Share with friends</string>
+    <string name="share_game_text">Play Bagh Chal — Tigers &amp; Goats, the classic board game, offline on one phone!</string>
+    <string name="send_feedback">Send feedback</string>
+
+    <!-- Tutorial -->
+    <string name="how_to_play">How to play</string>
+    <string name="tutorial_step_of">Step %1$d of %2$d</string>
+    <string name="tutorial_title_1">The board</string>
+    <string name="tutorial_body_1">Bagh Chal is played on a 5×5 board. Pieces sit on the crossings of the lines — not inside the squares.</string>
+    <string name="tutorial_title_2">Tigers &amp; Goats</string>
+    <string name="tutorial_body_2">4 Tigers start on the corners. 20 Goats start off the board. Goats place first, one by one.</string>
+    <string name="tutorial_title_3">Phase 1 — Place goats</string>
+    <string name="tutorial_body_3">Each goat turn: place one goat on an empty point. Tigers can move or jump to catch goats even during this phase.</string>
+    <string name="tutorial_title_4">How tigers catch</string>
+    <string name="tutorial_body_4">A tiger jumps over an adjacent goat into the empty point beyond — like checkers. One goat per jump. Catch 5 goats to win.</string>
+    <string name="tutorial_title_5">How goats win</string>
+    <string name="tutorial_body_5">After all goats are placed, both sides move. Goats win by blocking every tiger so none can move. Watch the trays: goats left to place, and 5 tiger catch slots.</string>
+
+    <!-- Privacy -->
+    <string name="privacy_updated">Bagh Chal — Tigers &amp; Goats · Last updated: September 2026</string>
+    <string name="privacy_overview_title">Overview</string>
+    <string name="privacy_overview_body">Bagh Chal — Tigers &amp; Goats is an offline board game. The core game (2 Players Offline and Play vs AI) works without an internet connection and without creating an account.</string>
+    <string name="privacy_collect_title">Data we collect</string>
+    <string name="privacy_collect_body">In the current version, the app does not require login and does not intentionally collect personal information such as name, email, or phone number for gameplay.</string>
+    <string name="privacy_stored_title">Data stored on your device</string>
+    <string name="privacy_stored_body">The app may store simple preferences on your device (for example language, whether you have finished the tutorial, and gameplay settings such as move hints). This data stays on your phone and is not uploaded by us.</string>
+    <string name="privacy_ads_title">Ads, analytics, and purchases</string>
+    <string name="privacy_ads_body">This version does not include advertising SDKs, analytics SDKs, or in-app purchases. If we add them in a future update, this policy will be updated and the Play Store listing will describe any new data use.</string>
+    <string name="privacy_children_title">Children</string>
+    <string name="privacy_children_body">Bagh Chal is a strategy board game suitable for a general audience. We do not knowingly collect personal data from children.</string>
+    <string name="privacy_changes_title">Changes</string>
+    <string name="privacy_changes_body">We may update this privacy policy when the app changes. The “Last updated” date at the top will change when we do.</string>
+    <string name="privacy_contact_title">Contact</string>
+    <string name="privacy_contact_body">Questions about privacy: contact the developer through the Google Play Store listing for Bagh Chal — Tigers &amp; Goats, or open an issue on the project repository if you use GitHub.</string>
+
+    <!-- Game dialogs -->
+    <string name="leave_game_title">Leave game?</string>
+    <string name="leave_game_message">Your current game will be lost. Go back to Home?</string>
+    <string name="leave">Leave</string>
+    <string name="new_game_title">Start new game?</string>
+    <string name="new_game_message">This will reset the board and start a fresh match.</string>
+
+    <!-- Game status -->
+    <string name="tigers_win">Tigers Win!</string>
+    <string name="goats_win">Goats Win!</string>
+    <string name="ai_thinking">AI is thinking…</string>
+    <string name="ai_playing">AI is playing…</string>
+    <string name="tiger_moving">Tiger moving…</string>
+    <string name="goat_moving">Goat moving…</string>
+    <string name="tigers_turn">Tigers\' Turn</string>
+    <string name="goats_turn">Goats\' Turn</string>
+    <string name="please_wait">Please wait</string>
+    <string name="watch_piece_slide">Watch the piece slide</string>
+    <string name="watch_piece_move">Watch the piece move…</string>
+    <string name="tap_new_game_again">Tap New Game to play again</string>
+    <string name="place_a_goat">Place a goat</string>
+    <string name="move_or_capture">Move or capture</string>
+    <string name="move_a_piece">Move a piece</string>
+    <string name="your_turn_action">Your turn — %1$s</string>
+    <string name="ai_action">AI — %1$s</string>
+    <string name="captured_count">Captured: %1$d/5</string>
+    <string name="goats_to_place">Goats to place: %1$d</string>
+    <string name="goats_on_board_count">Goats on board: %1$d</string>
+    <string name="mode_vs_ai">vs AI · %1$s · You: %2$s</string>
+
+    <!-- Board tips -->
+    <string name="hint_place_glow">Tap a glowing spot — a goat jumps from the tray</string>
+    <string name="hint_place_plain">Tap an empty point to place a goat</string>
+    <string name="hint_move_glow">Tap a green ring to move</string>
+    <string name="hint_move_plain">Tap where you want to move</string>
+    <string name="hint_select_glow">Tap a glowing piece to select</string>
+    <string name="hint_select_plain">Tap your piece to select</string>
+
+    <!-- Trays -->
+    <string name="your_turn">YOUR TURN</string>
+    <string name="waiting">Waiting</string>
+    <string name="winner">Winner!</string>
+    <string name="ready_to_place">Ready to place</string>
+    <string name="goat_left">goat left</string>
+    <string name="goats_left">goats left</string>
+    <string name="on_the_board">On the board</string>
+    <string name="goats_alive">goats alive</string>
+    <string name="caught_goats">Caught goats</string>
+    <string name="enough_to_win">enough to win</string>
+    <string name="need_5_to_win">need 5 to win</string>
 </resources>

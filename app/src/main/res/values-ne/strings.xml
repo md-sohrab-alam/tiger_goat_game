@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">बाघ चाल — बाघ र बाख्रा</string>
+    <string name="app_brand">बाघ चाल</string>
+
+    <string name="back">पछाडि</string>
+    <string name="cancel">रद्द गर्नुहोस्</string>
+    <string name="home">होम</string>
+    <string name="settings">सेटिङहरू</string>
+    <string name="goats">बाख्राहरू</string>
+    <string name="tigers">बाघहरू</string>
+    <string name="new_game">नयाँ खेल</string>
+    <string name="new_short">नयाँ</string>
+    <string name="play_again">फेरि खेल्नुहोस्</string>
+    <string name="game_over">खेल सकियो</string>
+    <string name="selected">चयनित</string>
+    <string name="skip">छोड्नुहोस्</string>
+    <string name="next">अर्को</string>
+    <string name="got_it">बुझेँ</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="continue_label">जारी राख्नुहोस्</string>
+
+    <string name="choose_language">भाषा छान्नुहोस्</string>
+    <string name="choose_language_subtitle">पछि सेटिङबाट परिवर्तन गर्न सकिन्छ</string>
+    <string name="language">भाषा</string>
+    <string name="language_section">भाषा</string>
+
+    <string name="home_tagline">बाघ र बाख्रा · अफलाइन बोर्ड खेल</string>
+    <string name="home_blurb">४ बाघ विरुद्ध २० बाख्रा\nएक्लै AI सँग वा एक फोनमा साथीसँग खेल्नुहोस्</string>
+    <string name="mode_pass_and_play">२ खेलाडी · अफलाइन</string>
+    <string name="mode_pass_and_play_hint">फोन पास गर्नुहोस् — एकले बाख्रा, एकले बाघ</string>
+    <string name="play_vs_ai">AI सँग खेल्नुहोस्</string>
+    <string name="also_known_as">भारतका केही क्षेत्रमा बाघ बक्री भनेर पनि चिनिन्छ</string>
+
+    <string name="ai_setup_subtitle">आफ्नो पक्ष र कठिनाई छान्नुहोस्</string>
+    <string name="play_as">यस रूपमा खेल्नुहोस्</string>
+    <string name="goats_detail">२० गोटा · बाघलाई घेर्नुहोस्</string>
+    <string name="tigers_detail">४ गोटा · ५ बाख्रा समात्नुहोस्</string>
+    <string name="difficulty">कठिनाई</string>
+    <string name="difficulty_easy">सजिलो</string>
+    <string name="difficulty_medium">मध्यम</string>
+    <string name="difficulty_hard">कठिन</string>
+    <string name="start_game">खेल सुरु गर्नुहोस्</string>
+
+    <string name="settings_subtitle">खेल र सहयोग</string>
+    <string name="section_board_help">बोर्ड सहयोग</string>
+    <string name="section_feel">अनुभव</string>
+    <string name="section_help_legal">सहयोग र कानुनी</string>
+    <string name="section_about">बारेमा</string>
+    <string name="setting_move_hints">चाल संकेत देखाउनुहोस्</string>
+    <string name="setting_move_hints_sub">बाघ वा बाख्रा ट्याप गर्दा वैध ठाउँ चम्किन्छ</string>
+    <string name="setting_status_tips">सुझाव पाठ देखाउनुहोस्</string>
+    <string name="setting_status_tips_sub">खेलमा बोर्ड मुनि छोटा निर्देशन</string>
+    <string name="setting_last_move">अन्तिम चाल हाइलाइट</string>
+    <string name="setting_last_move_sub">अन्तिम चलेको गोटामा नीलो घेरा</string>
+    <string name="setting_haptics">ट्यापमा कम्पन</string>
+    <string name="setting_haptics_sub">बोर्ड ट्याप गर्दा हल्का कम्पन</string>
+    <string name="how_to_play_tutorial">कसरी खेल्ने (ट्यूटोरियल)</string>
+    <string name="about_version">बाघ चाल — बाघ र बाख्रा · संस्करण १.०</string>
+    <string name="about_offline">अफलाइन बोर्ड खेल · बाघ र बाख्रा</string>
+    <string name="about_regional">नेपाल र नजिकका हिमाली क्षेत्रमा लोकप्रिय (बाघ बक्री पनि भनिन्छ)। एक फोनमा परिवारसँग खेल्न उत्तम।</string>
+    <string name="share_game">साथीहरूसँग सेयर गर्नुहोस्</string>
+    <string name="share_game_text">बाघ चाल — बाघ र बाख्रा खेल्नुहोस्, क्लासिक बोर्ड खेल, एक फोनमा अफलाइन!</string>
+    <string name="send_feedback">प्रतिक्रिया पठाउनुहोस्</string>
+
+    <string name="how_to_play">कसरी खेल्ने</string>
+    <string name="tutorial_step_of">चरण %1$d / %2$d</string>
+    <string name="tutorial_title_1">बोर्ड</string>
+    <string name="tutorial_body_1">बाघ चाल ५×५ बोर्डमा खेलिन्छ। गोटा रेखाका चौराहमा बस्छन् — वर्गभित्र होइन।</string>
+    <string name="tutorial_title_2">बाघ र बाख्रा</string>
+    <string name="tutorial_body_2">४ बाघ कुनामा सुरु हुन्छन्। २० बाख्रा बोर्डबाहिर सुरु हुन्छन्। बाख्रा पहिले एक-एक गरी राखिन्छन्।</string>
+    <string name="tutorial_title_3">चरण १ — बाख्रा राख्नुहोस्</string>
+    <string name="tutorial_body_3">प्रत्येक बाख्राको पालो: खाली बिन्दुमा एक बाख्रा राख्नुहोस्। यस चरणमा पनि बाघ चल्न वा उफ्रेर बाख्रा समात्न सक्छन्।</string>
+    <string name="tutorial_title_4">बाघले कसरी समात्छ</string>
+    <string name="tutorial_body_4">बाघ नजिकको बाख्रा माथि उफ्रेर खाली बिन्दुमा जान्छ — चेकर्स जस्तै। एक उफ्राइमा एक बाख्रा। ५ बाख्रा समाते जीत।</string>
+    <string name="tutorial_title_5">बाख्राले कसरी जित्छ</string>
+    <string name="tutorial_body_5">सबै बाख्रा राखेपछि दुवै पक्ष चल्छन्। बाख्राले हरेक बाघलाई रोकेर जित्छन् ताकि कोही नचल्न सकोस्। ट्रे हेर्नुहोस्: राख्न बाँकी बाख्रा र बाघका ५ समात्ने स्लट।</string>
+
+    <string name="privacy_updated">बाघ चाल — बाघ र बाख्रा · अन्तिम अपडेट: सेप्टेम्बर २०२६</string>
+    <string name="privacy_overview_title">सारांश</string>
+    <string name="privacy_overview_body">बाघ चाल — बाघ र बाख्रा अफलाइन बोर्ड खेल हो। मुख्य खेल (२ खेलाडी अफलाइन र AI सँग) इन्टरनेट र खाता बिना चल्छ।</string>
+    <string name="privacy_collect_title">हामी कुन डेटा संकलन गर्छौं</string>
+    <string name="privacy_collect_body">हालको संस्करणमा लगइन चाहिँदैन र गेमप्लेका लागि नाम, इमेल वा फोन जस्ता व्यक्तिगत डेटा जानाजानी संकलन गरिँदैन।</string>
+    <string name="privacy_stored_title">तपाईंको यन्त्रमा बचत हुने डेटा</string>
+    <string name="privacy_stored_body">एपले यन्त्रमा सरल प्राथमिकता बचत गर्न सक्छ (जस्तै भाषा, ट्यूटोरियल पूरा भएको, र चाल संकेत जस्ता सेटिङ)। यो डेटा फोनमै रहन्छ र हामी अपलोड गर्दैनौं।</string>
+    <string name="privacy_ads_title">विज्ञापन, विश्लेषण र खरिद</string>
+    <string name="privacy_ads_body">यस संस्करणमा विज्ञापन, विश्लेषण SDK वा इन-एप खरिद छैन। भविष्यमा थपे यो नीति र Play Store लिस्टिङ अपडेट हुनेछ।</string>
+    <string name="privacy_children_title">बालबालिका</string>
+    <string name="privacy_children_body">बाघ चाल सामान्य दर्शकका लागि उपयुक्त रणनीति बोर्ड खेल हो। हामी जानाजानी बालबालिकाबाट व्यक्तिगत डेटा लिँदैनौं।</string>
+    <string name="privacy_changes_title">परिवर्तन</string>
+    <string name="privacy_changes_body">एप परिवर्तन हुँदा हामी यो नीति अपडेट गर्न सक्छौं। माथिको “अन्तिम अपडेट” मिति त्यसबेला परिवर्तन हुन्छ।</string>
+    <string name="privacy_contact_title">सम्पर्क</string>
+    <string name="privacy_contact_body">गोपनीयताबारे प्रश्न: बाघ चाल — बाघ र बाख्राको Google Play Store लिस्टिङमार्फत विकासकर्तारसँग सम्पर्क गर्नुहोस्, वा GitHub मा issue खोल्नुहोस्।</string>
+
+    <string name="leave_game_title">खेल छोड्ने हो?</string>
+    <string name="leave_game_message">हालको खेल हराउनेछ। होममा फर्कने हो?</string>
+    <string name="leave">छोड्नुहोस्</string>
+    <string name="new_game_title">नयाँ खेल सुरु गर्ने हो?</string>
+    <string name="new_game_message">बोर्ड रिसेट भई नयाँ खेल सुरु हुनेछ।</string>
+
+    <string name="tigers_win">बाघ जित्यो!</string>
+    <string name="goats_win">बाख्रा जित्यो!</string>
+    <string name="ai_thinking">AI सोचिरहेको छ…</string>
+    <string name="ai_playing">AI खेलिरहेको छ…</string>
+    <string name="tiger_moving">बाघ चलिरहेको छ…</string>
+    <string name="goat_moving">बाख्रा चलिरहेको छ…</string>
+    <string name="tigers_turn">बाघको पालो</string>
+    <string name="goats_turn">बाख्राको पालो</string>
+    <string name="please_wait">कृपया पर्खनुहोस्</string>
+    <string name="watch_piece_slide">गोटा सर्दै हेर्नुहोस्</string>
+    <string name="watch_piece_move">गोटा चल्दै हेर्नुहोस्…</string>
+    <string name="tap_new_game_again">फेरि खेल्न नयाँ खेल ट्याप गर्नुहोस्</string>
+    <string name="place_a_goat">एक बाख्रा राख्नुहोस्</string>
+    <string name="move_or_capture">चल्नुहोस् वा समात्नुहोस्</string>
+    <string name="move_a_piece">एक गोटा चलाउनुहोस्</string>
+    <string name="your_turn_action">तपाईंको पालो — %1$s</string>
+    <string name="ai_action">AI — %1$s</string>
+    <string name="captured_count">समातिएका: %1$d/५</string>
+    <string name="goats_to_place">राख्न बाँकी: %1$d</string>
+    <string name="goats_on_board_count">बोर्डमा बाख्रा: %1$d</string>
+    <string name="mode_vs_ai">AI विरुद्ध · %1$s · तपाईं: %2$s</string>
+
+    <string name="hint_place_glow">चम्किरहेको बिन्दुमा ट्याप गर्नुहोस् — ट्रेबाट बाख्रा आउँछ</string>
+    <string name="hint_place_plain">खाली बिन्दुमा ट्याप गरी बाख्रा राख्नुहोस्</string>
+    <string name="hint_move_glow">चल्न हरियो घेरामा ट्याप गर्नुहोस्</string>
+    <string name="hint_move_plain">जहाँ जान चाहनुहुन्छ त्यहाँ ट्याप गर्नुहोस्</string>
+    <string name="hint_select_glow">चम्किरहेको गोटा ट्याप गरी छान्नुहोस्</string>
+    <string name="hint_select_plain">आफ्नो गोटा छान्न ट्याप गर्नुहोस्</string>
+
+    <string name="your_turn">तपाईंको पालो</string>
+    <string name="waiting">पर्खँदै</string>
+    <string name="winner">विजेता!</string>
+    <string name="ready_to_place">राख्न तयार</string>
+    <string name="goat_left">बाख्रा बाँकी</string>
+    <string name="goats_left">बाख्रा बाँकी</string>
+    <string name="on_the_board">बोर्डमा</string>
+    <string name="goats_alive">जीवित बाख्रा</string>
+    <string name="caught_goats">समातिएका बाख्रा</string>
+    <string name="enough_to_win">जितका लागि पर्याप्त</string>
+    <string name="need_5_to_win">जितका लागि ५ चाहिन्छ</string>
+</resources>

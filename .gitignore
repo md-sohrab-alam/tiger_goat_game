@@ -13,3 +13,10 @@
 .externalNativeBuild
 .cxx
 local.properties
+keystore.properties
+*.jks
+*.keystore
+signing-key-base64.txt
+# Private signing pack — keep offline / backup elsewhere; never push
+/signing-secret/
+signing-secret.zip

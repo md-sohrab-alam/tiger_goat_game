@@ -7,6 +7,7 @@ import com.sohrab.baghbakri.game.GameSession
 import com.sohrab.baghbakri.game.GameState
 import com.sohrab.baghbakri.game.Move
 import com.sohrab.baghbakri.game.PlayerSide
+import com.sohrab.baghbakri.settings.AppSettings
 
 data class GameUiState(
     val gameState: GameState = GameState.newGame(),
@@ -19,7 +20,8 @@ data class GameUiState(
     val tapFeedbackTick: Long = 0L,
     /** Snapshot before a move — used while the slide animation plays. */
     val boardDisplayState: GameState? = null,
-    val animatingMove: Move? = null
+    val animatingMove: Move? = null,
+    val settings: AppSettings = AppSettings()
 ) {
     val isGameOver: Boolean get() = gameState.isOver()
 
@@ -45,14 +47,14 @@ data class GameUiState(
     /** Positions the user can tap right now — shown as visible targets on the board. */
     val interactiveTargets: Set<Int>
         get() {
-            if (!canInteract) return emptySet()
+            if (!canInteract || !settings.showMoveHints) return emptySet()
             val moves = BaghBakriGame.getLegalMoves(gameState)
             return when {
                 gameState.phase == GamePhase.PLACEMENT && gameState.currentTurn == PlayerSide.GOAT -> {
                     moves.filterIsInstance<Move.PlaceGoat>().map { it.to }.toSet()
                 }
                 selectedPosition != null -> {
-                    highlightedDestinations + setOfNotNull(selectedPosition)
+                    highlightedDestinations + setOf(selectedPosition)
                 }
                 else -> {
                     moves.filterIsInstance<Move.Relocate>().map { it.from }.toSet()
@@ -60,64 +62,25 @@ data class GameUiState(
             }
         }
 
-    val turnHeadline: String
-        get() {
-            if (isGameOver) {
-                return when (gameState.winner) {
-                    PlayerSide.TIGER -> "Tigers Win!"
-                    PlayerSide.GOAT -> "Goats Win!"
-                    null -> "Game Over"
+    /** Destination rings after selecting a piece — only if move hints are on. */
+    val visibleDestinations: Set<Int>
+        get() = if (settings.showMoveHints) highlightedDestinations else emptySet()
+
+    val visibleLastMovePositions: Set<Int>
+        get() = if (settings.showLastMove) {
+            lastMove?.let { move ->
+                when (move) {
+                    is Move.PlaceGoat -> setOf(move.to)
+                    is Move.Relocate -> setOf(move.from, move.to)
                 }
-            }
-            if (isAiThinking) return "AI is thinking…"
-            if (isAnimating) {
-                return when (currentTurn) {
-                    PlayerSide.TIGER -> "Tiger moving…"
-                    PlayerSide.GOAT -> "Goat moving…"
-                }
-            }
-            return when (currentTurn) {
-                PlayerSide.TIGER -> "Tigers' Turn"
-                PlayerSide.GOAT -> "Goats' Turn"
-            }
-        }
-
-    val turnSubline: String
-        get() {
-            if (isGameOver) return "Tap New Game to play again"
-            if (isAiThinking) return "Please wait"
-            if (isAnimating) return "Watch the piece slide"
-            val action = when (gameState.phase) {
-                GamePhase.PLACEMENT -> if (currentTurn == PlayerSide.GOAT) "Place a goat" else "Move or capture"
-                GamePhase.MOVEMENT -> "Move a piece"
-            }
-            return when {
-                session.mode == GameMode.VS_AI && isHumanTurn -> "Your turn — $action"
-                session.mode == GameMode.VS_AI -> "AI — $action"
-                isHumanTurn || session.mode == GameMode.PASS_AND_PLAY -> action
-                else -> action
-            }
-        }
-
-    val captureText: String
-        get() = "Captured: ${gameState.capturedGoats}/5"
-
-    val goatsRemainingText: String
-        get() = if (gameState.phase == GamePhase.PLACEMENT) {
-            "Goats to place: ${gameState.goatsRemainingToPlace}"
+            }.orEmpty()
         } else {
-            "Goats on board: ${gameState.goatsOnBoard}"
+            emptySet()
         }
 
-    val modeText: String
-        get() = when (session.mode) {
-            GameMode.PASS_AND_PLAY -> "Pass & Play"
-            GameMode.VS_AI -> "vs AI (${session.difficulty.label}) — You: ${session.humanSide.label}"
-        }
+    val captureCount: Int get() = gameState.capturedGoats
 
-    private val PlayerSide.label: String
-        get() = when (this) {
-            PlayerSide.TIGER -> "Tigers"
-            PlayerSide.GOAT -> "Goats"
-        }
+    val goatsToPlaceCount: Int get() = gameState.goatsRemainingToPlace
+
+    val goatsOnBoardCount: Int get() = gameState.goatsOnBoard
 }

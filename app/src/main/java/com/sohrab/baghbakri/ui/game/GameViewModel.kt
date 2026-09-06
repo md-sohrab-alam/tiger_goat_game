@@ -9,6 +9,7 @@ import com.sohrab.baghbakri.game.GamePhase
 import com.sohrab.baghbakri.game.GameSession
 import com.sohrab.baghbakri.game.Move
 import com.sohrab.baghbakri.game.PlayerSide
+import com.sohrab.baghbakri.settings.AppSettings
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,21 +26,27 @@ class GameViewModel : ViewModel() {
     private var aiJob: Job? = null
     private var tapFeedbackJob: Job? = null
 
-    fun configure(session: GameSession) {
+    fun configure(session: GameSession, settings: AppSettings = AppSettings()) {
         aiJob?.cancel()
         _uiState.value = GameUiState(
             gameState = BaghBakriGame.newGame(),
-            session = session
+            session = session,
+            settings = settings
         )
         scheduleAiTurnIfNeeded()
     }
 
+    fun applySettings(settings: AppSettings) {
+        _uiState.update { it.copy(settings = settings) }
+    }
+
     fun startNewGame() {
-        val session = _uiState.value.session
+        val current = _uiState.value
         aiJob?.cancel()
         _uiState.value = GameUiState(
             gameState = BaghBakriGame.newGame(),
-            session = session
+            session = current.session,
+            settings = current.settings
         )
         scheduleAiTurnIfNeeded()
     }
@@ -141,7 +148,8 @@ class GameViewModel : ViewModel() {
             _uiState.update {
                 it.copy(isAiThinking = true, selectedPosition = null, highlightedDestinations = emptySet())
             }
-            delay(AI_MOVE_DELAY_MS)
+            // Think time: random 1–5s so moves feel deliberate (faster early, slower later as difficulty grows).
+            delay(randomAiThinkMs())
 
             val snapshot = _uiState.value
             if (snapshot.isGameOver || snapshot.isAnimating ||
@@ -166,6 +174,17 @@ class GameViewModel : ViewModel() {
         }
     }
 
+    private fun randomAiThinkMs(): Long {
+        val difficulty = _uiState.value.session.difficulty
+        // Easy leans faster; Hard leans slower — still within 1–5 seconds overall.
+        val (minMs, maxMs) = when (difficulty) {
+            com.sohrab.baghbakri.game.AiDifficulty.EASY -> 1000L to 2800L
+            com.sohrab.baghbakri.game.AiDifficulty.MEDIUM -> 1500L to 4000L
+            com.sohrab.baghbakri.game.AiDifficulty.HARD -> 2200L to 5000L
+        }
+        return kotlin.random.Random.nextLong(minMs, maxMs + 1)
+    }
+
     private fun clearSelection() {
         _uiState.update { it.copy(selectedPosition = null, highlightedDestinations = emptySet()) }
     }
@@ -185,7 +204,6 @@ class GameViewModel : ViewModel() {
     }
 
     companion object {
-        private const val AI_MOVE_DELAY_MS = 450L
         private const val TAP_FEEDBACK_MS = 350L
     }
 }

@@ -5,14 +5,18 @@ import com.sohrab.baghbakri.game.Board
 import com.sohrab.baghbakri.game.Move
 import com.sohrab.baghbakri.game.PlayerSide
 
+/**
+ * Board geometry: origin is the top-left intersection (not a uniform padding from canvas edge).
+ */
 internal data class BoardLayout(
-    val padding: Float,
+    val originX: Float,
+    val originY: Float,
     val step: Float
 ) {
     fun centerOf(index: Int): Offset {
         val row = index / Board.SIZE
         val col = index % Board.SIZE
-        return Offset(padding + col * step, padding + row * step)
+        return Offset(originX + col * step, originY + row * step)
     }
 
     fun lerp(fromIndex: Int, toIndex: Int, fraction: Float): Offset {
