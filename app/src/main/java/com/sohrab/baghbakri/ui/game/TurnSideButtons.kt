@@ -40,12 +40,11 @@ import com.sohrab.baghbakri.game.Board
 import com.sohrab.baghbakri.game.GamePhase
 import com.sohrab.baghbakri.game.Move
 import com.sohrab.baghbakri.game.PlayerSide
+import com.sohrab.baghbakri.ui.common.PieceIcon
 import com.sohrab.baghbakri.ui.theme.GoatPiece
 import com.sohrab.baghbakri.ui.theme.GoatPieceBorder
 import com.sohrab.baghbakri.ui.theme.GoatTurnColor
 import com.sohrab.baghbakri.ui.theme.GoatTurnContainer
-import com.sohrab.baghbakri.ui.theme.TigerPiece
-import com.sohrab.baghbakri.ui.theme.TigerPieceDark
 import com.sohrab.baghbakri.ui.theme.TigerTurnColor
 import com.sohrab.baghbakri.ui.theme.TigerTurnContainer
 import kotlin.math.min
@@ -245,7 +244,7 @@ private fun GoatTray(
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
             )
             Spacer(modifier = Modifier.height(4.dp))
-            PieceDot(isTiger = false, size = 28.dp)
+            PieceIcon(isTiger = false, size = 28.dp)
             Text(
                 text = "$onBoard",
                 style = MaterialTheme.typography.titleLarge,
@@ -277,7 +276,7 @@ private fun GoatStack(count: Int, highlightTop: Boolean) {
         contentAlignment = Alignment.CenterStart
     ) {
         for (i in 0 until visible) {
-            PieceDot(
+            PieceIcon(
                 isTiger = false,
                 size = if (i == visible - 1 && highlightTop) 26.dp else 22.dp,
                 modifier = Modifier.offset(x = (i * 10).dp)
@@ -357,35 +356,7 @@ private fun CaptureSlot(filled: Boolean, newest: Boolean) {
         contentAlignment = Alignment.Center
     ) {
         if (filled) {
-            Box(
-                modifier = Modifier
-                    .size(16.dp)
-                    .clip(CircleShape)
-                    .background(GoatPiece)
-                    .border(1.dp, GoatPieceBorder, CircleShape)
-            )
+            PieceIcon(isTiger = false, size = 16.dp)
         }
-    }
-}
-
-@Composable
-private fun PieceDot(
-    isTiger: Boolean,
-    size: androidx.compose.ui.unit.Dp,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .size(size)
-            .clip(CircleShape)
-            .background(if (isTiger) TigerPieceDark else GoatPieceBorder),
-        contentAlignment = Alignment.Center
-    ) {
-        Box(
-            modifier = Modifier
-                .size(size * 0.72f)
-                .clip(CircleShape)
-                .background(if (isTiger) TigerPiece else GoatPiece)
-        )
     }
 }

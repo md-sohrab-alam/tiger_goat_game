@@ -39,15 +39,12 @@ import com.sohrab.baghbakri.game.AiDifficulty
 import com.sohrab.baghbakri.game.GameMode
 import com.sohrab.baghbakri.game.GameSession
 import com.sohrab.baghbakri.game.PlayerSide
+import com.sohrab.baghbakri.ui.common.PieceIcon
 import com.sohrab.baghbakri.ui.game.localizedLabel
-import com.sohrab.baghbakri.ui.theme.GoatPiece
-import com.sohrab.baghbakri.ui.theme.GoatPieceBorder
 import com.sohrab.baghbakri.ui.theme.GoatTurnColor
 import com.sohrab.baghbakri.ui.theme.GoatTurnContainer
 import com.sohrab.baghbakri.ui.theme.ScreenBackground
 import com.sohrab.baghbakri.ui.theme.ScreenBackgroundDark
-import com.sohrab.baghbakri.ui.theme.TigerPiece
-import com.sohrab.baghbakri.ui.theme.TigerPieceDark
 import com.sohrab.baghbakri.ui.theme.TigerTurnColor
 import com.sohrab.baghbakri.ui.theme.TigerTurnContainer
 
@@ -192,20 +189,7 @@ private fun SidePickCard(
             .padding(14.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            modifier = Modifier
-                .size(48.dp)
-                .clip(CircleShape)
-                .background(if (isTiger) TigerPieceDark else GoatPieceBorder),
-            contentAlignment = Alignment.Center
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(36.dp)
-                    .clip(CircleShape)
-                    .background(if (isTiger) TigerPiece else GoatPiece)
-            )
-        }
+        PieceIcon(isTiger = isTiger, size = 48.dp)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = title,

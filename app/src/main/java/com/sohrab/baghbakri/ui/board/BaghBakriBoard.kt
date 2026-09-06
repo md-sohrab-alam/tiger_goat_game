@@ -39,6 +39,10 @@ import com.sohrab.baghbakri.game.Board
 import com.sohrab.baghbakri.game.GameState
 import com.sohrab.baghbakri.game.Move
 import com.sohrab.baghbakri.game.PlayerSide
+import com.sohrab.baghbakri.ui.common.PieceSprites
+import com.sohrab.baghbakri.ui.common.drawGoatPiece
+import com.sohrab.baghbakri.ui.common.drawTigerPiece
+import com.sohrab.baghbakri.ui.common.rememberPieceSprites
 import com.sohrab.baghbakri.ui.theme.BoardFrame
 import com.sohrab.baghbakri.ui.theme.BoardFrameLight
 import com.sohrab.baghbakri.ui.theme.BoardHighlight
@@ -50,15 +54,11 @@ import com.sohrab.baghbakri.ui.theme.BoardSelectedGlow
 import com.sohrab.baghbakri.ui.theme.BoardSurface
 import com.sohrab.baghbakri.ui.theme.BoardSurfaceDark
 import com.sohrab.baghbakri.ui.theme.BoardSurfaceLight
-import com.sohrab.baghbakri.ui.theme.GoatPiece
-import com.sohrab.baghbakri.ui.theme.GoatPieceBorder
 import com.sohrab.baghbakri.ui.theme.IntersectionDot
 import com.sohrab.baghbakri.ui.theme.LastMoveHighlight
 import com.sohrab.baghbakri.ui.theme.TapPulseColor
 import com.sohrab.baghbakri.ui.theme.TapTargetFill
 import com.sohrab.baghbakri.ui.theme.TapTargetRing
-import com.sohrab.baghbakri.ui.theme.TigerPiece
-import com.sohrab.baghbakri.ui.theme.TigerPieceDark
 import kotlin.math.hypot
 import kotlin.math.min
 
@@ -84,6 +84,7 @@ fun BaghBakriBoard(
     hapticEnabled: Boolean = true
 ) {
     val haptic = LocalHapticFeedback.current
+    val pieceSprites = rememberPieceSprites()
     val tapPulse = remember { Animatable(0f) }
     val moveProgress = remember { Animatable(0f) }
 
@@ -289,14 +290,14 @@ fun BaghBakriBoard(
 
                     val alpha = capturedGoatAlpha(index, animatingMove, progress)
                     when (gameState.pieceAt(index)) {
-                        PlayerSide.TIGER -> drawTiger(center, step, alpha = alpha)
-                        PlayerSide.GOAT -> drawGoat(center, step, alpha = alpha)
+                        PlayerSide.TIGER -> drawTigerPiece(pieceSprites, center, step, alpha = alpha)
+                        PlayerSide.GOAT -> drawGoatPiece(pieceSprites, center, step, alpha = alpha)
                         null -> Unit
                     }
                 }
 
                 animatingMove?.let { move ->
-                    drawAnimatedPiece(move, layout, step, progress, size)
+                    drawAnimatedPiece(move, layout, step, progress, size, pieceSprites)
                 }
             }
         }
@@ -328,7 +329,8 @@ private fun DrawScope.drawAnimatedPiece(
     layout: BoardLayout,
     step: Float,
     progress: Float,
-    canvasSize: Size
+    canvasSize: Size,
+    sprites: PieceSprites
 ) {
     when (move) {
         is Move.PlaceGoat -> {
@@ -345,12 +347,12 @@ private fun DrawScope.drawAnimatedPiece(
             )
             val center = quadraticBezier(origin, mid, destination, t)
             val scale = 0.55f + 0.45f * t
-            drawGoat(center, step, scale = scale, alpha = 1f, glow = true)
+            drawGoatPiece(sprites, center, step, scale = scale, alpha = 1f, glow = true)
         }
         is Move.Relocate -> {
             drawMoveTrail(move, layout, progress, step)
             val tigerCenter = layout.lerp(move.from, move.to, progress)
-            drawTiger(tigerCenter, step, scale = 1.08f, alpha = 1f, glow = true)
+            drawTigerPiece(sprites, tigerCenter, step, scale = 1.08f, alpha = 1f, glow = true)
 
             // Captured goat flies toward tiger capture tray (bottom-right).
             val captured = move.capturedGoat
@@ -368,7 +370,7 @@ private fun DrawScope.drawAnimatedPiece(
                 val goatPos = quadraticBezier(start, mid, end, flyT)
                 val goatScale = 1f - 0.35f * flyT
                 val goatAlpha = 1f - 0.25f * flyT
-                drawGoat(goatPos, step, scale = goatScale, alpha = goatAlpha, glow = true)
+                drawGoatPiece(sprites, goatPos, step, scale = goatScale, alpha = goatAlpha, glow = true)
             }
         }
     }
@@ -403,64 +405,6 @@ private fun DrawScope.drawMoveTrail(
         start = start,
         end = end,
         strokeWidth = step * 0.04f
-    )
-}
-
-private fun DrawScope.drawTiger(
-    center: Offset,
-    step: Float,
-    scale: Float = 1f,
-    alpha: Float = 1f,
-    glow: Boolean = false
-) {
-    if (glow) {
-        drawCircle(
-            color = TigerPiece.copy(alpha = 0.35f * alpha),
-            radius = step * 0.32f * scale,
-            center = center
-        )
-    }
-    drawCircle(
-        color = TigerPieceDark.copy(alpha = alpha),
-        radius = step * 0.27f * scale,
-        center = center
-    )
-    drawCircle(
-        color = TigerPiece.copy(alpha = alpha),
-        radius = step * 0.22f * scale,
-        center = center
-    )
-    // simple face mark
-    drawCircle(
-        color = TigerPieceDark.copy(alpha = alpha * 0.55f),
-        radius = step * 0.05f * scale,
-        center = center + Offset(0f, step * 0.02f * scale)
-    )
-}
-
-private fun DrawScope.drawGoat(
-    center: Offset,
-    step: Float,
-    scale: Float = 1f,
-    alpha: Float = 1f,
-    glow: Boolean = false
-) {
-    if (glow) {
-        drawCircle(
-            color = GoatPiece.copy(alpha = 0.45f * alpha),
-            radius = step * 0.26f * scale,
-            center = center
-        )
-    }
-    drawCircle(
-        color = GoatPieceBorder.copy(alpha = alpha),
-        radius = step * 0.21f * scale,
-        center = center
-    )
-    drawCircle(
-        color = GoatPiece.copy(alpha = alpha),
-        radius = step * 0.17f * scale,
-        center = center
     )
 }
 

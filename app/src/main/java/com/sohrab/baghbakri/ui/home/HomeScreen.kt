@@ -2,7 +2,6 @@ package com.sohrab.baghbakri.ui.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -21,20 +18,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.sohrab.baghbakri.R
-import com.sohrab.baghbakri.ui.theme.GoatPiece
-import com.sohrab.baghbakri.ui.theme.GoatPieceBorder
+import com.sohrab.baghbakri.ui.common.PieceIcon
 import com.sohrab.baghbakri.ui.theme.GoatTurnColor
 import com.sohrab.baghbakri.ui.theme.ScreenBackground
 import com.sohrab.baghbakri.ui.theme.ScreenBackgroundDark
-import com.sohrab.baghbakri.ui.theme.TigerPiece
-import com.sohrab.baghbakri.ui.theme.TigerPieceDark
 import com.sohrab.baghbakri.ui.theme.TigerTurnColor
 
 @Composable
@@ -55,8 +48,8 @@ fun HomeScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            PiecePreview(isTiger = true)
-            PiecePreview(isTiger = false)
+            PieceIcon(isTiger = true, size = 52.dp)
+            PieceIcon(isTiger = false, size = 52.dp)
         }
         Spacer(modifier = Modifier.height(20.dp))
         Text(
@@ -134,23 +127,5 @@ fun HomeScreen(
         ) {
             Text(stringResource(R.string.settings))
         }
-    }
-}
-
-@Composable
-private fun PiecePreview(isTiger: Boolean) {
-    Box(
-        modifier = Modifier
-            .size(52.dp)
-            .clip(CircleShape)
-            .background(if (isTiger) TigerPieceDark else GoatPieceBorder),
-        contentAlignment = Alignment.Center
-    ) {
-        Box(
-            modifier = Modifier
-                .size(40.dp)
-                .clip(CircleShape)
-                .background(if (isTiger) TigerPiece else GoatPiece)
-        )
     }
 }

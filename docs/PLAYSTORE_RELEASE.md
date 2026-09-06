@@ -144,13 +144,16 @@ Keywords: bagh bakri, bagh chal, tiger goat game, nepali board game, strategy ga
 
 ### Store listing — graphics
 
-| Asset              | Spec                          | Status |
-|--------------------|-------------------------------|--------|
-| App icon           | 512×512 PNG                   | [ ]    |
-| Feature graphic    | 1024×500 PNG/JPG              | [ ]    |
-| Phone screenshots  | 2–8 images, min 320px short side | [ ] |
-| 7-inch tablet      | Optional                      | [ ]    |
-| 10-inch tablet     | Optional                      | [ ]    |
+| Asset              | Spec                          | File |
+|--------------------|-------------------------------|------|
+| App icon           | 512×512 PNG                   | `playstore-assets/icon-512.png` |
+| Feature graphic    | 1024×500 PNG/JPG              | `playstore-assets/feature-graphic-1024x500.png` |
+| Logo (optional)    | Square PNG                    | `playstore-assets/logo-square.png` |
+| Phone screenshots  | ≥2 images (~1080×1920)        | Capture from device — see `docs/SCREENSHOTS.md` |
+
+Full checklist: `playstore-assets/README.md`
+
+Optional later: 7" / 10" tablet screenshots.
 
 **Screenshot headlines (overlay text on each):**
 1. "Ancient Nepali Strategy Game"
