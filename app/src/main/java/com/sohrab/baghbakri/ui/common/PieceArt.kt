@@ -22,11 +22,15 @@ import com.sohrab.baghbakri.ui.theme.GoatPiece
 import com.sohrab.baghbakri.ui.theme.TigerPiece
 import kotlin.math.roundToInt
 
-/** Logo-matched Bagh / Bakri token bitmaps for Canvas drawing. */
+/** Branded Bagh / Bakri token bitmaps for Canvas drawing. */
 data class PieceSprites(
     val bagh: ImageBitmap,
     val bakri: ImageBitmap
 )
+
+/** Board token diameters relative to intersection step (goats smaller — 20 vs 4). */
+private const val TIGER_SIZE_FACTOR = 0.58f
+private const val GOAT_SIZE_FACTOR = 0.48f
 
 @Composable
 fun rememberPieceSprites(): PieceSprites {
@@ -52,6 +56,7 @@ fun DrawScope.drawTigerPiece(
         image = sprites.bagh,
         center = center,
         step = step,
+        sizeFactor = TIGER_SIZE_FACTOR,
         scale = scale,
         alpha = alpha,
         glow = glow,
@@ -71,6 +76,7 @@ fun DrawScope.drawGoatPiece(
         image = sprites.bakri,
         center = center,
         step = step,
+        sizeFactor = GOAT_SIZE_FACTOR,
         scale = scale,
         alpha = alpha,
         glow = glow,
@@ -82,12 +88,13 @@ private fun DrawScope.drawPieceToken(
     image: ImageBitmap,
     center: Offset,
     step: Float,
+    sizeFactor: Float,
     scale: Float,
     alpha: Float,
     glow: Boolean,
     glowColor: Color
 ) {
-    val diameter = step * 0.56f * scale
+    val diameter = step * sizeFactor * scale
     if (glow) {
         drawCircle(
             color = glowColor.copy(alpha = 0.32f * alpha),
@@ -117,11 +124,12 @@ fun PieceIcon(
     modifier: Modifier = Modifier,
     size: Dp = 40.dp
 ) {
+    val resolved = if (isTiger) size else size * 0.85f
     Image(
         painter = painterResource(
             if (isTiger) R.drawable.piece_bagh else R.drawable.piece_bakri
         ),
         contentDescription = null,
-        modifier = modifier.size(size)
+        modifier = modifier.size(resolved)
     )
 }
