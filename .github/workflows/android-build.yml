@@ -10,21 +10,21 @@ on:
   workflow_dispatch:
     inputs:
       artifacts:
-        description: "Artifacts to build (AAB for Play Store, APK for direct install)"
+        description: "What to build (default: both — APK for testing + AAB for Play Store)"
         required: true
         default: both
         type: choice
         options:
           - both
-          - aab
           - apk
+          - aab
       create_github_release:
-        description: "Create a GitHub Release and attach the built artifact(s)"
+        description: "Also create a GitHub Release with APK + AAB attached for download"
         required: true
         default: false
         type: boolean
       release_tag:
-        description: "Release tag (e.g. v1.0). Leave empty to use versionName from build.gradle.kts"
+        description: "Release tag (e.g. v1.0). Leave empty to use versionName"
         required: false
         default: ""
         type: string
@@ -95,10 +95,10 @@ jobs:
             exit 0
           fi
 
+          # Auto builds (push/PR) always produce both. Manual run can pick.
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             TYPE="${{ inputs.artifacts }}"
           else
-            # push to main + PRs into main: signed APK + AAB
             TYPE="both"
           fi
 
@@ -154,10 +154,10 @@ jobs:
           if [ "${{ steps.targets.outputs.want_apk }}" = "true" ]; then
             if [ "$BUILD_TYPE" = "debug" ]; then
               SRC=$(ls app/build/outputs/apk/debug/*.apk | head -n 1)
-              APK_NAME="bagh-chal-debug-v-${VER}-${SUFFIX}.apk"
+              APK_NAME="bagh-chal-FOR-TESTING-debug-v-${VER}-${SUFFIX}.apk"
             else
               SRC=$(ls app/build/outputs/apk/release/*.apk | grep -v unsigned | grep -v aligned | head -n 1)
-              APK_NAME="bagh-chal-release-v-${VER}-${SUFFIX}.apk"
+              APK_NAME="bagh-chal-FOR-TESTING-v-${VER}-${SUFFIX}.apk"
             fi
             cp "$SRC" "$APK_NAME"
             echo "apk_name=$APK_NAME" >> "$GITHUB_ENV"
@@ -166,7 +166,7 @@ jobs:
 
           if [ "${{ steps.targets.outputs.want_aab }}" = "true" ]; then
             SRC=$(ls app/build/outputs/bundle/release/*.aab | head -n 1)
-            AAB_NAME="bagh-chal-release-v-${VER}-${SUFFIX}.aab"
+            AAB_NAME="bagh-chal-FOR-PLAY-STORE-v-${VER}-${SUFFIX}.aab"
             cp "$SRC" "$AAB_NAME"
             echo "aab_name=$AAB_NAME" >> "$GITHUB_ENV"
             if [ -n "$RELEASE_FILES" ]; then
@@ -182,21 +182,38 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Upload APK artifact
+      - name: Upload APK (testing — install on device)
         if: steps.targets.outputs.want_apk == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: bagh-chal-apk-${{ steps.targets.outputs.build_type }}-v${{ steps.version.outputs.name }}-${{ steps.version.outputs.suffix }}
+          name: 1-APK-for-testing-v${{ steps.version.outputs.name }}-${{ steps.version.outputs.suffix }}
           path: ${{ env.apk_name }}
           retention-days: 30
+          if-no-files-found: error
 
-      - name: Upload AAB artifact
+      - name: Upload AAB (Play Store release)
         if: steps.targets.outputs.want_aab == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: bagh-chal-aab-v${{ steps.version.outputs.name }}-${{ steps.version.outputs.suffix }}
+          name: 2-AAB-for-play-store-v${{ steps.version.outputs.name }}-${{ steps.version.outputs.suffix }}
           path: ${{ env.aab_name }}
           retention-days: 30
+          if-no-files-found: error
+
+      - name: Write download summary
+        run: |
+          {
+            echo "## Downloads"
+            echo ""
+            if [ "${{ steps.targets.outputs.want_apk }}" = "true" ]; then
+              echo "- **APK (testing):** artifact \`1-APK-for-testing-...\` — install on a phone"
+            fi
+            if [ "${{ steps.targets.outputs.want_aab }}" = "true" ]; then
+              echo "- **AAB (release):** artifact \`2-AAB-for-play-store-...\` — upload to Google Play Console"
+            fi
+            echo ""
+            echo "Open this run → **Artifacts** (bottom of the page) → download either or both."
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Resolve release tag
         if: github.event_name == 'workflow_dispatch' && inputs.create_github_release
@@ -209,18 +226,22 @@ jobs:
           fi
           echo "name=$TAG" >> "$GITHUB_OUTPUT"
 
-      - name: Create GitHub Release
+      - name: Create GitHub Release (APK + AAB download links)
         if: github.event_name == 'workflow_dispatch' && inputs.create_github_release && steps.signing.outputs.signed == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.name }}
           name: Bagh Chal ${{ steps.tag.outputs.name }}
           body: |
-            Automated release build from `${{ github.ref_name }}` (`${{ github.sha }}`).
+            Automated build from `${{ github.ref_name }}` (`${{ github.sha }}`).
+
+            | File | Use |
+            |------|-----|
+            | `.apk` | **Testing** — install directly on a device |
+            | `.aab` | **Release** — upload to Google Play Console |
 
             - **versionName:** ${{ steps.version.outputs.name }}
             - **versionCode:** ${{ steps.version.outputs.code }}
-            - **Play Store:** upload the `.aab` file
           files: ${{ steps.files.outputs.release_files }}
           draft: false
           prerelease: false
