@@ -1,0 +1,14 @@
+# Treat images and binaries as binary — never CRLF-convert (breaks PNGs on Windows)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.jfif binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.jar binary
+*.so binary
+*.dylib binary
+*.dll binary
+*.jks binary
+*.keystore binary
