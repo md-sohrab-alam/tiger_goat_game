@@ -8,16 +8,16 @@ Android board game for the classic **Bagh Chal** (also known as **Bagh Bakri**) 
 
 ## Screenshots
 
-<p align="center">
-  <img src="screenshots/home.png" alt="Home — Bagh Chal" width="200" />
-  <img src="screenshots/playing_board.png" alt="Gameplay board" width="200" />
-  <img src="screenshots/tutorial.png" alt="How to play tutorial" width="200" />
-  <img src="screenshots/settings.png" alt="Settings" width="200" />
-</p>
+![Home](./screenshots/home.png)
+![Gameplay](./screenshots/playing_board.png)
+![Tutorial](./screenshots/tutorial.png)
+![Settings](./screenshots/settings.png)
 
 | Home | Gameplay | Tutorial | Settings |
 |------|----------|----------|----------|
 | Modes & branding | Live board with trays | Step-by-step rules | Language, hints, help |
+
+Browse files: [`screenshots/`](./screenshots/)
 
 ---
 
