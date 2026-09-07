@@ -8,10 +8,13 @@ Android board game for the classic **Bagh Chal** (also known as **Bagh Bakri**) 
 
 ## Screenshots
 
-![Home](./screenshots/home.jpeg)
-![Gameplay](./screenshots/playing_board.jpeg)
-![Tutorial](./screenshots/tutorial.jpeg)
-![Settings](./screenshots/settings.jpeg)
+<!-- Served via jsDelivr because some networks block raw.githubusercontent.com (GitHub's default image CDN). -->
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/md-sohrab-alam/tiger_goat_game@main/screenshots/home.jpeg" alt="Home" width="180" />
+  <img src="https://cdn.jsdelivr.net/gh/md-sohrab-alam/tiger_goat_game@main/screenshots/playing_board.jpeg" alt="Gameplay" width="180" />
+  <img src="https://cdn.jsdelivr.net/gh/md-sohrab-alam/tiger_goat_game@main/screenshots/tutorial.jpeg" alt="Tutorial" width="180" />
+  <img src="https://cdn.jsdelivr.net/gh/md-sohrab-alam/tiger_goat_game@main/screenshots/settings.jpeg" alt="Settings" width="180" />
+</p>
 
 | Home | Gameplay | Tutorial | Settings |
 |------|----------|----------|----------|
