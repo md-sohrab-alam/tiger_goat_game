@@ -69,6 +69,15 @@ Privacy policy: [`docs/PRIVACY_POLICY.md`](docs/PRIVACY_POLICY.md)
 
 ---
 
-## License / contact
+## Copyright
+
+**Copyright © 2026 Sohrab Alam. All rights reserved.**
+
+This project is **not** open source for commercial reuse. You may not copy and republish
+this app (or its branding/assets) on app stores without written permission.
+
+Full notice: [`COPYRIGHT.md`](COPYRIGHT.md) · Secrets policy: [`docs/SECURITY.md`](docs/SECURITY.md)
+
+## Contact
 
 See the Google Play listing for Bagh Chal — Tigers & Goats, or open an issue on this repository.

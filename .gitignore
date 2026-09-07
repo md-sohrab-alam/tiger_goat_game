@@ -13,10 +13,19 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Signing & credentials — never push
 keystore.properties
 *.jks
 *.keystore
+*.p12
 signing-key-base64.txt
-# Private signing pack — keep offline / backup elsewhere; never push
+SIGNING_KEY*
 /signing-secret/
 signing-secret.zip
+.env
+.env.*
+credentials.json
+**/secrets/**
+*.pem
+*.key
