@@ -8,10 +8,10 @@ Android board game for the classic **Bagh Chal** (also known as **Bagh Bakri**) 
 
 ## Screenshots
 
-![Home](./screenshots/home.jpg)
-![Gameplay](./screenshots/playing_board.jpg)
-![Tutorial](./screenshots/tutorial.jpg)
-![Settings](./screenshots/settings.jpg)
+![Home](./screenshots/home.jpeg)
+![Gameplay](./screenshots/playing_board.jpeg)
+![Tutorial](./screenshots/tutorial.jpeg)
+![Settings](./screenshots/settings.jpeg)
 
 | Home | Gameplay | Tutorial | Settings |
 |------|----------|----------|----------|
